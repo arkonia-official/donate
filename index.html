@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документ фонда — Аркония</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto Serif', Georgia, serif;
+            font-weight: 500;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Верхнее навигационное меню */
+        .top-nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ced4da;
+            padding: 0 40px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .top-nav a {
+            font-family: 'Roboto Serif', Georgia, serif;
+            font-weight: 500;
+            color: #333333;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 14px 20px;
+            display: inline-block;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            background-color: #f1f3f5;
+            color: #00467f;
+        }
+
+        /* Контейнер страницы */
+        .page-wrapper {
+            padding: 40px 20px;
+        }
+
+        /* Плавное появление всей страницы */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Анимация пульсации тени для синей плашки */
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 4px 6px rgba(0, 70, 127, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+            }
+            50% {
+                box-shadow: 0 8px 20px rgba(0, 70, 127, 0.35), 0 2px 6px rgba(0, 70, 127, 0.15);
+            }
+            100% {
+                box-shadow: 0 4px 6px rgba(0, 70, 127, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        /* Двухколоночный макет */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @media (max-width: 992px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .top-nav {
+                padding: 0 20px;
+                justify-content: center;
+            }
+        }
+
+        .content-card {
+            background: #ffffff;
+            border-radius: 4px;
+            padding: 35px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Синяя плашка с пульсирующей тенью */
+        .blue-status-panel {
+            background-color: #00467f;
+            color: #ffffff;
+            padding: 24px;
+            border-radius: 4px;
+            margin-bottom: 35px;
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .progress-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            height: 26px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Белая полоса заполнения шкалы */
+        .progress-fill {
+            width: 0%; 
+            background-color: #ffffff;
+            height: 100%;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        h1 {
+            color: #003366;
+            font-size: 26px;
+            font-weight: 900;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #003366;
+            font-size: 21px;
+            font-weight: 900;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 16.5px;
+            line-height: 1.65;
+            color: #222222;
+            margin-bottom: 22px;
+        }
+
+        ul {
+            font-size: 16.5px;
+            line-height: 1.65;
+            color: #222222;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* ОТДЕЛЬНЫЙ ПРАВЫЙ БЛОК ДЛЯ РЕКВИЗИТОВ */
+        .sidebar-card {
+            background: #ffffff;
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #ced4da;
+            height: fit-content;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #00467f;
+        }
+
+        .box-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #003366;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-text {
+            font-size: 15.5px;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        /* Номер карты */
+        .card-number {
+            font-family: monospace;
+            font-size: 19px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            background: #f1f3f5;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            border: 1px solid #ced4da;
+            text-align: center;
+        }
+
+        /* ИНТЕРАКТИВНАЯ КНОПКА С НАПРАВЛЕННЫМ ЗАПОЛНЕНИЕМ */
+        .btn-pay {
+            display: block;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            border: 2px solid #003366;
+            background-color: #ffffff;
+            color: #003366;
+            font-family: 'Roboto Serif', Georgia, serif;
+            font-weight: 900;
+            font-size: 16px;
+            padding: 14px 20px;
+            margin-top: 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            /* Плавный уход цвета текста обратно при убирании курсора */
+            transition: color 0.4s ease; 
+        }
+
+        /* Эффект шторки (заполнения) */
+        .btn-pay::before {
+            content: '';
+            position: absolute;
+            top: var(--y, 0);
+            left: var(--x, 0);
+            width: 0;
+            height: 0;
+            background-color: #003366;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            /* Плавное уменьшение круга обратно при убирании курсора */
+            transition: width 0.4s ease, height 0.4s ease; 
+            z-index: -1;
+        }
+
+        .btn-pay:hover {
+            color: #ffffff;
+        }
+
+        .btn-pay:hover::before {
+            width: 1000px;  /* Увеличено до 1000px для гарантированного покрытия со всех углов */
+            height: 1000px; /* Увеличено до 1000px */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="https://about.arkonia.site.je" target="_blank">О стране</a>
+        <a href="https://arkonia.site.je" target="_blank">Правительство</a>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="main-layout">
+            
+            <div class="content-card">
+                <div class="blue-status-panel">
+                    <div class="panel-title">Фонд государственного развития</div>
+                    <div class="progress-container">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progressLabel">Загрузка...</span>
+                    </div>
+                </div>
+
+                <h1>Обустройство физической территории Арконии</h1>
+                <p>Фонд государственного развития объявляет о начале целевого сбора средств, направленного на материально-техническое обеспечение первого физического представительства суверенной территории Арконии. Переход проекта в реальный сектор требует формирования устойчивой первичной инфраструктуры на реальном участке земли.</p>
+                <p>Финансирование программы осуществляется исключительно за счет добровольных целевых взносов сторонников и граждан государства. Аркония принципиально отказывается от коммерциализации государственных институтов, продажи внутренних должностей или выдачи привилегий в обмен на финансовую поддержку. Развитие физического центра — это общая фундаментальная задача, базирующаяся на принципах осознанного участия.</p>
+
+                <h2>Направления расходования бюджета</h2>
+                <p>Установленный лимит в размере 5 000 рублей ПМР рассчитан на покрытие базовых материальных расходов для первичного благоустройства географического центра:</p>
+                <ul>
+                    <li><strong>Государственные символы:</strong> Приобретение и монтаж долговечного уличного флагштока, а также изготовление официального тканевого флага Арконии, устойчивого к климатическим нагрузкам.</li>
+                    <li><strong>Пограничное обозначение:</strong> Изготовление и установка стационарных пограничных знаков для четкой визуальной фиксации границ суверенного физического пространства.</li>
+                    <li><strong>Первичное благоустройство:</strong> Подготовка грунта, расчистка территории Нулевого Километра и базовое обустройство участка для проведения будущих государственных мероприятий.</li>
+                </ul>
+
+                <h2>Порядок отчетности и прозрачности</h2>
+                <p>Все поступающие средства фиксируются Казначейством Арконии в режиме реального времени. По факту достижения итогового целевого показателя на официальных информационных ресурсах государства будет опубликован исчерпывающий фото- и видеоотчет. Он будет включать в себя полную документальную фиксацию всех этапов проведенных строительных работ и детальную ведомость расходов на закупленные материалы.</p>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="box-title">Реквизиты перевода</div>
+                <div class="sidebar-text">
+                    <p style="margin-top: 0;">Вы можете поддержать государственную программу прямым переводом средств в рублях ПМР.</p>
+                    <p><strong>Платёжная система:</strong><br>Nationальная карта «Клевер»</p>
+                    <p><strong>Банки-партнеры:</strong><br>Агропромбанк / Сбербанк ПМР</p>
+                    <p><strong>Получатель:</strong><br>Казначейство Арконии (физлицо)</p>
+                    <p style="margin-bottom: 5px;"><strong>Номер карты:</strong></p>
+                    
+                    <span class="card-number">XXXX XXXX XXXX XXXX</span>
+                    
+                    <p style="font-size: 13.5px; color: #666666; margin-bottom: 15px; line-height: 1.4;">
+                        Перевод можно осуществить через мобильное приложение Вашего банка по указанному выше номеру карты или онлайн.
+                    </p>
+
+                    <a href="https://agroprombank.com/chastnym-klientam/karty/perevody-s-karty-na-kartu/" target="_blank" class="btn-pay" id="payButton">
+                        Оплатить через сайт
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentMoney = 1000; 
+            const targetMoney = 5000;  
+
+            let percent = Math.round((currentMoney / targetMoney) * 100);
+            if (percent > 100) percent = 100; 
+
+            setTimeout(() => {
+                document.getElementById('progressBar').style.width = percent + '%';
+                document.getElementById('progressLabel').innerHTML = `<span>Сбор: ${currentMoney} / ${targetMoney} руб.</span> <span>(${percent}%)</span>`;
+            }, 100);
+
+            const button = document.getElementById('payButton');
+            button.addEventListener('mouseenter', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                button.style.setProperty('--x', x + 'px');
+                button.style.setProperty('--y', y + 'px');
+            });
+        });
+    </script>
+
+</body>
+</html>
