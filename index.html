@@ -251,7 +251,7 @@
             overflow: hidden;
             z-index: 1;
             /* Плавный уход цвета текста обратно при убирании курсора */
-            transition: color 0.5s ease; 
+            transition: color 0.4s ease; 
         }
 
         /* Эффект шторки (заполнения) */
@@ -266,7 +266,7 @@
             border-radius: 50%;
             transform: translate(-50%, -50%);
             /* Плавное уменьшение круга обратно при убирании курсора */
-            transition: width 0.4s ease, height 0.4s ease; 
+            transition: width 0.2s ease, height 0.2s ease; 
             z-index: -1;
         }
 
@@ -326,7 +326,7 @@
                     <p><strong>Получатель:</strong><br>Казначейство Арконии (физлицо)</p>
                     <p style="margin-bottom: 5px;"><strong>Номер карты:</strong></p>
                     
-                    <span class="card-number">XXXX XXXX XXXX XXXX</span>
+                    <span class="card-number">9104 0143 0420 3190</span>
                     
                     <p style="font-size: 13.5px; color: #666666; margin-bottom: 15px; line-height: 1.4;">
                         Перевод можно осуществить через мобильное приложение Вашего банка по указанному выше номеру карты или онлайн.
@@ -343,8 +343,8 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            const currentMoney = 1000; 
-            const targetMoney = 5000;  
+            const currentMoney = 0; 
+            const targetMoney = 1000;  
 
             let percent = Math.round((currentMoney / targetMoney) * 100);
             if (percent > 100) percent = 100; 
