@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Документ фонда — Аркония</title>
+    <title>Сбор средств на улучшение Арконии</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,8 +275,8 @@
         }
 
         .btn-pay:hover::before {
-            width: 1000px;  /* Увеличено до 1000px для гарантированного покрытия со всех углов */
-            height: 1000px; /* Увеличено до 1000px */
+            width: 1000px;  /* Гарантированное покрытие со всех углов */
+            height: 1000px; 
         }
     </style>
 </head>
@@ -355,14 +355,22 @@
             }, 100);
 
             const button = document.getElementById('payButton');
-            button.addEventListener('mouseenter', (e) => {
+
+            // Универсальная функция для обновления координат
+            const updateCoords = (e) => {
                 const rect = button.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
                 button.style.setProperty('--x', x + 'px');
                 button.style.setProperty('--y', y + 'px');
-            });
+            };
+
+            // Обновляем координаты при наведении
+            button.addEventListener('mouseenter', updateCoords);
+
+            // Обновляем координаты прямо в момент ухода курсора, чтобы "губка" стирала оттуда
+            button.addEventListener('mouseleave', updateCoords);
         });
     </script>
 
